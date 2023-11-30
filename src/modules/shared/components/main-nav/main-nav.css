@@ -1,0 +1,31 @@
+.logo{
+    width: 180px;
+    height: 40px;
+}
+
+.search-box{
+    width: 670px;
+}
+
+.btn-section button{
+    outline: none;
+    border: none;
+    cursor: pointer;
+    border-radius: 500px;
+    font-weight: 600;
+    color: inherit;
+    transition: all 150ms ease-in-out 0s;
+    font-size: 14px;
+    margin-left: 1rem;
+    background-color: rgb(243, 245, 249);
+    padding: 8px;
+}
+
+.bt-category{
+    width: 278px;
+    text-align: left;
+}
+
+.img-poweredby{
+    width: 140px;
+}
