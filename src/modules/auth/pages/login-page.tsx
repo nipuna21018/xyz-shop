@@ -48,7 +48,7 @@ const LoginPage = () => {
                         </div>
                         <div className="card-footer text-muted px-4 text-black-50 py-3">
                             <div className="d-flex justify-content-between">
-                                <span><a href="#guest" className="btn btn-link text-black-50">Continue as Guest</a></span>
+                                <span><a href="/" className="btn btn-link text-black-50">Continue as Guest</a></span>
                                 <span>
                                     <a href="#privacy" className="btn btn-link text-black-50">Privacy</a> <a href="#terms" className="btn btn-link text-black-50">Terms</a>
                                 </span>

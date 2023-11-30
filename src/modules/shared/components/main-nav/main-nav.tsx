@@ -18,9 +18,9 @@ const MainNav = () => {
                                     Track My Order
                                 </button>
                             </div>
-                            <button className="btn btn-link text-white" type="button">
+                            <a className="btn btn-link text-white" href='/login'>
                                 Login
-                            </button>
+                            </a>
                             <button className="btn btn-link text-white" type="button">
                                 Sign Up
                             </button>
