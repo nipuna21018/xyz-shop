@@ -1,4 +1,4 @@
-import './main-nav.css';
+import './footer.css';
 
 const Footer = () => {
     return (

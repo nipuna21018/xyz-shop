@@ -1,15 +1,16 @@
 import React from 'react';
-import MainNav from "../../shared/components/main-nav/main-nav";
-import Footer from "../../shared/components/footer/footer";
+import withMainLayout from "../../shared/components/layouts/main-layout";
 
-const HomePage = () => {
+interface HomeProps {
+    // any props specific to Home here
+}
+
+const HomePage: React.FC<HomeProps> = () => {
     return (
-        <>
-            <MainNav/>
-            <div className="container home-page"></div>
-            <Footer/>
-        </>
+
+        <div className="container home-page">Hello hoc home</div>
+
     );
 };
 
-export default HomePage;
+export default withMainLayout(HomePage);
