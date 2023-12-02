@@ -1,21 +1,12 @@
-import axios from 'axios';
 import { AuthTokens } from "../interfaces/auth-token.interface";
 import AuthStorageService from './authStorage.service';
-
-// Create a custom instance of Axios with specific headers
-const customAxios = axios.create({
-    baseURL: 'https://api.escuelajs.co/api/v1/auth/login',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-Custom-Header': 'custom-value',
-    },
-});
+import httpClient from '../../shared/services/httpClient';
 
 const AuthService = {
     // Method to request tokens using the login URL
     login: async (email: string, password: string): Promise<AuthTokens | null> => {
         try {
-            const response = await customAxios.post('https://api.escuelajs.co/api/v1/auth/login', { email, password });
+            const response = await httpClient().post(process.env.REACT_APP_AUTH_SERVICE_URL || '', { email, password });
             const authTokens: AuthTokens = {
                 accessToken: response?.data?.access_token,
                 refreshToken: response?.data?.refresh_token
