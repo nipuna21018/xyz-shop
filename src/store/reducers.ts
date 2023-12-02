@@ -3,6 +3,7 @@ import authReducer from '../modules/auth/store/reducer';
 import recommendationReducer from '../modules/recomendation/store/reducer';
 import {AuthTokens} from "../modules/auth/interfaces/auth-token.interface";
 import {Product} from "../modules/recomendation/interfaces/product.interface";
+import { User } from '../modules/auth/interfaces/user.interface';
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -14,6 +15,7 @@ export interface AuthState {
     loading: boolean;
     tokens: AuthTokens,
     error: any,
+    user:User
 }
 
 export interface RecommendationState {

@@ -4,4 +4,5 @@ export const initialAuthState = {
     loading: false,
     tokens: null,
     error: null,
+    user:null
 };

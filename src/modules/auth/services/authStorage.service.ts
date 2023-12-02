@@ -10,8 +10,8 @@ const AuthStorageService = {
   },
 
   /** Get stored auth tokens from local storage */
-  getAuthTokens: (): AuthTokens | null => {
-    return StorageService.getItem<AuthTokens>(STORAGE_KEY_AUTH_TOKENS);
+  getAuthTokens: (): AuthTokens => {
+    return StorageService.getItem<AuthTokens>(STORAGE_KEY_AUTH_TOKENS) || {} as AuthTokens;
   },
 
   /** Remove auth tokens from storage */

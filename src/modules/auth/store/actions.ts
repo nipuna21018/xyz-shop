@@ -1,21 +1,36 @@
 import { AuthTokens } from '../interfaces/auth-token.interface';
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from './action-types';
+import { User } from '../interfaces/user.interface';
+import { ActionTypes } from './action-types';
 
 export const loginRequest = (username: string, password: string) => ({
-    type: LOGIN_REQUEST,
+    type: ActionTypes.LOGIN_REQUEST,
     payload: { username, password },
 });
 
 export const loginSuccess = (tokens: AuthTokens) => ({
-    type: LOGIN_SUCCESS,
+    type: ActionTypes.LOGIN_SUCCESS,
     payload: tokens,
 });
 
 export const loginFailure = (error: string) => ({
-    type: LOGIN_FAILURE,
+    type: ActionTypes.LOGIN_FAILURE,
     payload: error,
 });
 
 export const logout = () => ({
-    type: LOGOUT,
+    type: ActionTypes.LOGOUT,
+});
+
+export const getUserRequest = () => ({
+    type: ActionTypes.GET_USER_PROFILE_REQUEST
+});
+
+export const getUserSuccess = (user: User) => ({
+    type: ActionTypes.GET_USER_PROFILE_SUCCESS,
+    payload: user,
+});
+
+export const getUserFailure = (error: string) => ({
+    type: ActionTypes.GET_USER_PROFILE_FAILURE,
+    payload: error,
 });

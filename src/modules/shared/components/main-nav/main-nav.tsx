@@ -1,10 +1,29 @@
+import React, { useEffect } from 'react';
 import './main-nav.css';
 import logoImage from '../../../../assets/logos/orelbuyNew.png';
 import userIcon from '../../../../assets/icons/user.svg';
 import cartIcon from '../../../../assets/icons/cart.svg';
 import poweredByLogo from '../../../../assets/logos/poweredby-orel-img.webp';
+import { getUserRequest } from '../../../auth/store/actions';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { RootState } from '../../../../store/reducers';
+import { getUserProfile, isAuthenticated } from '../../../auth/store/selectors';
+import { User } from '../../../auth/interfaces/user.interface';
 
-const MainNav = () => {
+interface MainNavProps {
+    getUserProfile: () => void;
+    user: User;
+    isAuthenticated: boolean;
+}
+
+const MainNav: React.FC<MainNavProps> = ({ getUserProfile, user, isAuthenticated }) => {
+
+    useEffect(() => {
+        // Fetch user profile
+        getUserProfile();
+    }, [getUserProfile]);
+
     return (
         <div className="main-nav shadow">
             {/* Top toolbar secton */}
@@ -18,12 +37,17 @@ const MainNav = () => {
                                     Track My Order
                                 </button>
                             </div>
-                            <a className="btn btn-link text-white" href='/login'>
-                                Login
-                            </a>
-                            <button className="btn btn-link text-white" type="button">
-                                Sign Up
-                            </button>
+                            {!user &&
+                                <>
+                                    <a className="btn btn-link text-white" href='/login'>
+                                        Login
+                                    </a>
+                                    <button className="btn btn-link text-white" type="button">
+                                        Sign Up
+                                    </button>
+                                </>
+                            }
+                            {user && <a className="btn btn-link text-white" href='/profile'>{`Hi ${user.name}!`}</a>}
                         </div>
                     </div>
                 </div>
@@ -41,9 +65,12 @@ const MainNav = () => {
                             <input className="form-control me-2 input-lg rounded-5 p-3" type="search" placeholder="Type and hit enter to select" aria-label="Search" />
                         </div>
                         <div className='btn-section'>
-                            <button >
-                                <img src={userIcon} />
-                            </button>
+                            {user && <a href='/profile'><img className="profile-img bg-light" src={user ? user.avatar : userIcon} /></a>}
+                            {!user &&
+                                <button >
+                                    <img src={userIcon} />
+                                </button>
+                            }
                             <button >
                                 <img src={cartIcon} />
                             </button>
@@ -86,9 +113,21 @@ const MainNav = () => {
                 </div>
             </nav>
 
-        </div>
+        </div >
 
     );
 };
 
-export default MainNav;
+//Add mapStateToProps
+const mapStateToProps = (state: RootState) => ({
+    user: getUserProfile(state),
+    isAuthenticated: isAuthenticated(state)
+});
+
+
+// Add mapDispatchToProps
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    getUserProfile: () => dispatch(getUserRequest()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainNav);
