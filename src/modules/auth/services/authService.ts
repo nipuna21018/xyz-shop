@@ -22,6 +22,26 @@ const AuthService = {
         }
     },
 
+    // Method to refresh tokens using refreshToken
+    refreshAccessToken: async (): Promise<AuthTokens | null> => {
+        try {
+            const refreshToken =  AuthStorageService.getAuthTokens();
+            const response = await httpClient().post(process.env.REACT_APP_AUTH_SERVICE_URL || '', { refreshToken });
+            const authTokens: AuthTokens = {
+                accessToken: response?.data?.access_token,
+                refreshToken: response?.data?.refresh_token
+            };
+
+            // Store tokens in local storage
+            AuthStorageService.setAuthTokens(authTokens);
+
+            return authTokens;
+        } catch (error) {
+            console.error('Login failed:', error);
+            return null;
+        }
+    },
+
     // Method to logout
     logout: (): void => {
         // Clear tokens from local storage
