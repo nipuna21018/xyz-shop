@@ -1,0 +1,1 @@
+export const STORAGE_KEY_AUTH_TOKENS = 'authToekns';
