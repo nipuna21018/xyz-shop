@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import { loginRequest } from "../store/actions";
-import store from "../../../store/store";
 import { useSelector } from "react-redux";
 import { RootState } from '../../../store/reducers';
 import { Navigate } from 'react-router-dom';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
 
-const LoginPage = () => {
+interface LoginPageProps {
+    login: (username: string, password: string) => void;
+    loading: boolean;
+    error: string;
+}
+
+const LoginPage: React.FC<LoginPageProps> = ({ login, loading, error }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [username, setUsername] = useState('john@mail.com');
     const [password, setPassword] = useState('changeme');
@@ -21,7 +28,7 @@ const LoginPage = () => {
         // Prevent the default form submission behavior
         event.preventDefault();
         // Dispatch the LOGIN_REQUEST action with the entered username and password
-        store.dispatch(loginRequest(username, password));
+        login(username, password);
     };
 
 
@@ -62,7 +69,13 @@ const LoginPage = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-primary w-100" onClick={(e) => handleLogin(e)}>Login</button>
+                                {error &&
+                                    <div className="alert alert-danger" role="alert">
+                                        Email or passowrd incorrect
+                                    </div>
+                                }
+                                {!loading && <button type="submit" className="btn btn-primary w-100" onClick={(e) => handleLogin(e)}>Login</button>}
+                                {loading && <button className="btn btn-primary w-100" >Processing ...</button>}
                             </form>
                             <div className="text-center text-black-50">
                                 <div className='p-2'>Don’t have an account? <a href="#signup">Sign up</a></div>
@@ -85,4 +98,14 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+const mapStateToProps = (state: RootState) => ({
+    loading: state.auth.loading,
+    error: state.auth.error
+});
+
+// Add mapDispatchToProps
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    login: (username: string, password: string) => dispatch(loginRequest(username, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
