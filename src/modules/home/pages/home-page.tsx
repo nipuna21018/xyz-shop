@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { getHomePageRecRequest } from '../../recomendation/store/actions';
 import { RootState } from '../../../store/reducers';
 import { Dispatch } from 'redux';
+import {Product} from "../../recomendation/interfaces/product.interface";
+import {getHomepageRecommendations} from "../../recomendation/store/selectors";
 
 interface HomeProps {
     // any props specific to Home here
-    recommendations: any[]; // Adjust the type based on your actual data structure
+    recommendations: Product[]; // Adjust the type based on your actual data structure
     loading: boolean;
     getHomePageRec: (page: number) => void;
 }
@@ -24,7 +26,7 @@ const HomePage: React.FC<HomeProps> = ({ getHomePageRec, recommendations, loadin
 };
 
 const mapStateToProps = (state: RootState) => ({
-    recommendations: state.recommendations,
+    recommendations: getHomepageRecommendations(state),
     loading: state.auth.isAuthenticated,
 });
 
