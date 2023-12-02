@@ -124,7 +124,6 @@ const mapStateToProps = (state: RootState) => ({
     isAuthenticated: isAuthenticated(state)
 });
 
-
 // Add mapDispatchToProps
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     getUserProfile: () => dispatch(getUserRequest()),

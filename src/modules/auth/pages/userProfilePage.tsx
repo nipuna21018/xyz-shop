@@ -2,12 +2,17 @@ import React from 'react';
 import { logout } from '../store/actions';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+import { getUserProfile } from '../store/selectors';
+import { RootState } from '../../../store/reducers';
+import { User } from '../interfaces/user.interface';
+import withMainLayout from '../../shared/components/hoc/layouts/main-layout';
 
 interface UserProfilePageProps {
   logout: () => void;
+  user: User
 }
 
-const UserProfilePage: React.FC<UserProfilePageProps> = ({logout}) => {
+const UserProfilePage: React.FC<UserProfilePageProps> = ({ logout, user }) => {
 
   const handleLogout = () => {
     // Call the logout function from props
@@ -21,7 +26,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({logout}) => {
           <div className="card">
             {/* Lazy-loaded user image */}
             <img
-              src="https://i.pravatar.cc/300"
+              src={user?.avatar}
               alt="User Avatar"
               className="card-img-top img-fluid"
               loading="lazy"
@@ -35,11 +40,11 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({logout}) => {
           {/* Additional content for the user profile page */}
           <h2>User Profile</h2>
           <p>
-            This is the user's profile page. You can add more sections and information as needed.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
 
-          <h5 className="card-title">User Name</h5>
-          <p className="card-text">Email: user@example.com</p>
+          <p className="card-text">Name: {user?.name}</p>
+          <p className="card-text">Email: {user?.email}</p>
           <p className="card-text">Location: City, Country</p>
           <p className="card-text">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
@@ -53,9 +58,14 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({logout}) => {
   );
 };
 
+//Add mapStateToProps
+const mapStateToProps = (state: RootState) => ({
+  user: getUserProfile(state)
+});
+
 // Add mapDispatchToProps
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   logout: () => dispatch(logout()),
 });
 
-export default connect(null, mapDispatchToProps)(UserProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(withMainLayout(UserProfilePage));
