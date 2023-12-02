@@ -1,7 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { loginSuccess, loginFailure } from './actions';
-import { LOGIN_REQUEST, LOGOUT } from './action-types';
-import authService from "../services/authService";
+import { LOGIN_REQUEST } from './action-types';
+import AuthService from "../services/authService";
 import { AuthTokens } from "../interfaces/auth-token.interface";
 
 function* loginSaga(action: any) {
@@ -9,7 +9,7 @@ function* loginSaga(action: any) {
         const { username, password } = action.payload;
 
         // Make the API request
-        const response: AuthTokens = yield call(authService.login, username, password);
+        const response: AuthTokens = yield call(AuthService.login, username, password);
 
         // Extract tokens from the response
         const tokens = response;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { AuthTokens } from "../interfaces/auth-token.interface";
+import AuthStorageService from './authStorage.service';
 
 // Create a custom instance of Axios with specific headers
 const customAxios = axios.create({
@@ -10,18 +11,20 @@ const customAxios = axios.create({
     },
 });
 
-const authService = {
+const AuthService = {
     // Method to request tokens using the login URL
     login: async (email: string, password: string): Promise<AuthTokens | null> => {
         try {
             const response = await customAxios.post('https://api.escuelajs.co/api/v1/auth/login', { email, password });
-            const { accessToken, refreshToken } = response.data;
+            const authTokens: AuthTokens = {
+                accessToken: response?.data?.access_token,
+                refreshToken: response?.data?.refresh_token
+            };
 
             // Store tokens in local storage
-            localStorage.setItem('accessToken', accessToken);
-            localStorage.setItem('refreshToken', refreshToken);
+            AuthStorageService.setAuthTokens(authTokens);
 
-            return { accessToken, refreshToken };
+            return authTokens;
         } catch (error) {
             console.error('Login failed:', error);
             return null;
@@ -31,13 +34,11 @@ const authService = {
     // Method to logout
     logout: (): void => {
         // Clear tokens from local storage
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
+        AuthStorageService.removeAuthTokens();
 
-        // Optionally, you may want to perform additional cleanup or redirect to a login page
-        // For example, redirect to the login page
+        // Redirect to the login page
         window.location.replace('/login');
     },
 };
 
-export default authService;
+export default AuthService;
