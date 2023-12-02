@@ -7,6 +7,7 @@ import { Product } from '../../../recomendation/interfaces/product.interface';
 import { getHomepageRecommendations } from '../../../recomendation/store/selectors';
 import { getHomePageRecRequest } from '../../../recomendation/store/actions';
 import RecommendationItem from '../recommendationItem/recommendationItem';
+import RecommendationSkeleton from '../recommendationItem/recommendationItemSkeleton';
 
 interface RecommendationContainerProps extends WithInfiniteScrollProps {
     recommendations: Product[];
@@ -33,8 +34,12 @@ const RecommendationContainer: React.FC<RecommendationContainerProps> = ({
                 {recommendations.map((product) => (
                     <RecommendationItem key={product.product_code} product={product} />
                 ))}
+
+                {loading &&
+                    // Render multiple skeleton components while loading
+                    Array.from({ length: 5 }).map((_, index) => <RecommendationSkeleton key={index} />)}
             </div>
-            {loading && <p>Loading...</p>}
+           
         </div>
     );
 };
