@@ -1,0 +1,22 @@
+.skeleton {
+    background-color: #f0f0f0;
+    height: 200px; /* Adjust height as needed */
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 5px;
+  }
+  
+  .skeleton-title {
+    height: 20px;
+    width: 80%;
+    margin-bottom: 10px;
+    border-radius: 3px;
+  }
+  
+  .skeleton-text {
+    height: 15px;
+    width: 90%;
+    margin-bottom: 8px;
+    border-radius: 3px;
+  }
+  
