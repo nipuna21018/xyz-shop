@@ -17,15 +17,14 @@ const AuthService = {
 
             return authTokens;
         } catch (error) {
-            console.error('Login failed:', error);
-            return null;
+            throw new Error('Email or password incorrect.');
         }
     },
 
     // Method to refresh tokens using refreshToken
     refreshAccessToken: async (): Promise<AuthTokens | null> => {
         try {
-            const refreshToken =  AuthStorageService.getAuthTokens();
+            const refreshToken = AuthStorageService.getAuthTokens();
             const response = await httpClient().post(process.env.REACT_APP_AUTH_SERVICE_URL || '', { refreshToken });
             const authTokens: AuthTokens = {
                 accessToken: response?.data?.access_token,
@@ -37,8 +36,7 @@ const AuthService = {
 
             return authTokens;
         } catch (error) {
-            console.error('Login failed:', error);
-            return null;
+            throw error;
         }
     },
 

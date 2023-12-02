@@ -11,6 +11,7 @@ const rootReducer = combineReducers({
 
 export interface AuthState {
     isAuthenticated: boolean,
+    loading: boolean;
     tokens: AuthTokens,
     error: any,
 }
