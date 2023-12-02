@@ -19,6 +19,7 @@ export interface RecommendationState {
     // Define the shape of your recommendation state
     homePageRecommendations: Product[];
     loading: boolean;
+    hasMore: boolean;
     error: any;
 }
 
