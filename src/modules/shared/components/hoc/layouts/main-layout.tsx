@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Footer from "../footer/footer";
-import MainNav from "../main-nav/main-nav";
+import Footer from "../../footer/footer";
+import MainNav from "../../main-nav/main-nav";
 
 const withMainLayout = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
     return function WithMainLayout(props: P) {
