@@ -6,6 +6,7 @@ import { getUserProfile } from '../store/selectors';
 import { RootState } from '../../../store/reducers';
 import { User } from '../interfaces/user.interface';
 import withMainLayout from '../../shared/components/hoc/layouts/main-layout';
+import LazyImage from '../../shared/components/hoc/lazy-image/lazyImage';
 
 interface UserProfilePageProps {
   logout: () => void;
@@ -24,16 +25,13 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ logout, user }) => {
       <div className="row">
         <div className="col-md-4">
           <div className="card">
+
             {/* Lazy-loaded user image */}
-            <img
-              src={user?.avatar}
+            <LazyImage
+              actualSrc='https://i.pravatar.cc/3000'
               alt="User Avatar"
               className="card-img-top img-fluid"
-              loading="lazy"
             />
-            <div className="card-body">
-
-            </div>
           </div>
         </div>
         <div className="col-md-8">
