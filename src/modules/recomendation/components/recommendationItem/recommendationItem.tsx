@@ -1,5 +1,6 @@
 import React from 'react';
 import { Product } from '../../interfaces/product.interface';
+import LazyImage from '../../../shared/components/hoc/lazy-image/lazyImage';
 
 interface RecommendationItemProps {
     product: Product;
@@ -9,8 +10,8 @@ const RecommendationItem: React.FC<RecommendationItemProps> = ({ product }) => {
     return (
         <div key={product.product_code} className="col">
             <div className="card h-100">
-                <img
-                    src={product.images[0]?.url}
+                <LazyImage
+                    actualSrc={product.images[0]?.url}
                     className="card-img-top"
                     alt={product.name}
                 />

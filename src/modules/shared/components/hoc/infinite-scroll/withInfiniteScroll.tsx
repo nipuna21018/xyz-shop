@@ -18,7 +18,7 @@ const withInfiniteScroll = <P extends WithInfiniteScrollProps>(
                 window.innerHeight + Math.ceil(document.documentElement.scrollTop);
             const documentHeight = Math.ceil(document.documentElement.offsetHeight);
 
-            if (!loading && hasMore && scrollPosition === documentHeight) {
+            if (!loading && hasMore && scrollPosition >= documentHeight) {
                 loadMore(pageRef.current);
                 pageRef.current += 1;
             }

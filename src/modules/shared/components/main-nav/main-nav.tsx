@@ -1,10 +1,20 @@
+import React from 'react';
 import './main-nav.css';
 import logoImage from '../../../../assets/logos/orelbuyNew.png';
 import userIcon from '../../../../assets/icons/user.svg';
 import cartIcon from '../../../../assets/icons/cart.svg';
 import poweredByLogo from '../../../../assets/logos/poweredby-orel-img.webp';
+import { connect } from 'react-redux';
+import { RootState } from '../../../../store/reducers';
+import { getUserProfile } from '../../../auth/store/selectors';
+import { User } from '../../../auth/interfaces/user.interface';
 
-const MainNav = () => {
+interface MainNavProps {
+    user: User;
+}
+
+const MainNav: React.FC<MainNavProps> = ({ user }) => {
+
     return (
         <div className="main-nav shadow">
             {/* Top toolbar secton */}
@@ -18,12 +28,17 @@ const MainNav = () => {
                                     Track My Order
                                 </button>
                             </div>
-                            <a className="btn btn-link text-white" href='/login'>
-                                Login
-                            </a>
-                            <button className="btn btn-link text-white" type="button">
-                                Sign Up
-                            </button>
+                            {!user &&
+                                <>
+                                    <a className="btn btn-link text-white" href='/login'>
+                                        Login
+                                    </a>
+                                    <button className="btn btn-link text-white" type="button">
+                                        Sign Up
+                                    </button>
+                                </>
+                            }
+                            {user && <a className="btn btn-link text-white" href='/profile'>{`Hi ${user.name}!`}</a>}
                         </div>
                     </div>
                 </div>
@@ -41,9 +56,12 @@ const MainNav = () => {
                             <input className="form-control me-2 input-lg rounded-5 p-3" type="search" placeholder="Type and hit enter to select" aria-label="Search" />
                         </div>
                         <div className='btn-section'>
-                            <button >
-                                <img src={userIcon} />
-                            </button>
+                            {user && <a href='/profile'><img className="profile-img bg-light" src={user ? user.avatar : userIcon} /></a>}
+                            {!user &&
+                                <button >
+                                    <img src={userIcon} />
+                                </button>
+                            }
                             <button >
                                 <img src={cartIcon} />
                             </button>
@@ -86,9 +104,14 @@ const MainNav = () => {
                 </div>
             </nav>
 
-        </div>
+        </div >
 
     );
 };
 
-export default MainNav;
+//Add mapStateToProps
+const mapStateToProps = (state: RootState) => ({
+    user: getUserProfile(state)
+});
+
+export default connect(mapStateToProps, null)(MainNav);
