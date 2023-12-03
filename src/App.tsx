@@ -6,6 +6,7 @@ import store from './store/store';
 import { loadUersSession } from './modules/auth/store/actions';
 import UserProfilePage from './modules/auth/pages/userProfilePage';
 import PrivateRoute from './modules/shared/components/privateRoute/privateRoute';
+import React from 'react';
 
 function App() {
   store.dispatch(loadUersSession());
@@ -15,7 +16,6 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          
           {/* Using PrivateRoute to protect the routes*/}
           <Route path="/profile" element={<PrivateRoute element={<UserProfilePage />} />} />
 
