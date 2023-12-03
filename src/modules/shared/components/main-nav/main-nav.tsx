@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './main-nav.css';
 import logoImage from '../../../../assets/logos/orelbuyNew.png';
 import userIcon from '../../../../assets/icons/user.svg';
 import cartIcon from '../../../../assets/icons/cart.svg';
 import poweredByLogo from '../../../../assets/logos/poweredby-orel-img.webp';
-import { getUserRequest } from '../../../auth/store/actions';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import { RootState } from '../../../../store/reducers';
-import { getUserProfile, isAuthenticated } from '../../../auth/store/selectors';
+import { getUserProfile } from '../../../auth/store/selectors';
 import { User } from '../../../auth/interfaces/user.interface';
 
 interface MainNavProps {
