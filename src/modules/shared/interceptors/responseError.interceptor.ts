@@ -10,11 +10,11 @@ const responseErrorInterceptor = async (error: any): Promise<any> => {
     }
 
     if (response && response.status === 403) {
-        //@todo: handle this error as needed
+        //@todo: handle this error as needed. 403 can be used with permission handling
     }
 
     if (response && response.status === 500) {
-        //@todo: log the error or show notification
+        //@todo: log the error or show notification to handle the server side errors
     }
 
     return Promise.reject(error);
