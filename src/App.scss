@@ -1,0 +1,18 @@
+a{
+    text-decoration: none !important;
+}
+
+// Override default variables before the import
+$primary: #ea1c2d;
+
+// this is used to map colors. change accordingly.
+$theme-colors: (
+        primary: $primary,
+);
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+.btn-primary{
+    --bs-btn-color: #ffffff;
+}
