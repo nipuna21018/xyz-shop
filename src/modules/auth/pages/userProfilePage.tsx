@@ -47,7 +47,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ logout, user }) => {
           <p className="card-text">Bio: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
           {/* Logout button */}
-          <button className="btn btn-danger" onClick={handleLogout}>
+          <button className="btn btn-primary" onClick={handleLogout}>
             Logout
           </button>
         </div>
