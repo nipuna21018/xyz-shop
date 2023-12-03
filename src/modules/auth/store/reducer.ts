@@ -46,6 +46,13 @@ const reducer = (state = initialAuthState, action: any) => {
         user: null,
         error: action.payload,
       };
+    case ActionTypes.LOAD_USER_SESSION_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: action.payload.tokens && action.payload.tokens.accessToken && action.payload.user,
+        tokens: action.payload.tokens,
+        user: action.payload.user,
+      };
     default:
       return state;
   }

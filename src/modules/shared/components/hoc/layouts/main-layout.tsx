@@ -8,7 +8,7 @@ const withMainLayout = <P extends object>(WrappedComponent: React.ComponentType<
         return (
             <div>
                 <MainNav />
-                <div>
+                <div className='min-vh-100'>
                     {/* Content area */}
                     <WrappedComponent {...props} />
                 </div>

@@ -12,17 +12,10 @@ import { getUserProfile, isAuthenticated } from '../../../auth/store/selectors';
 import { User } from '../../../auth/interfaces/user.interface';
 
 interface MainNavProps {
-    getUserProfile: () => void;
     user: User;
-    isAuthenticated: boolean;
 }
 
-const MainNav: React.FC<MainNavProps> = ({ getUserProfile, user, isAuthenticated }) => {
-
-    useEffect(() => {
-        // Fetch user profile
-        getUserProfile();
-    }, [getUserProfile]);
+const MainNav: React.FC<MainNavProps> = ({ user }) => {
 
     return (
         <div className="main-nav shadow">
@@ -120,13 +113,7 @@ const MainNav: React.FC<MainNavProps> = ({ getUserProfile, user, isAuthenticated
 
 //Add mapStateToProps
 const mapStateToProps = (state: RootState) => ({
-    user: getUserProfile(state),
-    isAuthenticated: isAuthenticated(state)
+    user: getUserProfile(state)
 });
 
-// Add mapDispatchToProps
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    getUserProfile: () => dispatch(getUserRequest()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainNav);
+export default connect(mapStateToProps, null)(MainNav);

@@ -34,3 +34,12 @@ export const getUserFailure = (error: string) => ({
     type: ActionTypes.GET_USER_PROFILE_FAILURE,
     payload: error,
 });
+
+export const loadUersSession = () => ({
+    type: ActionTypes.LOAD_USER_SESSION
+});
+
+export const loadUersSessionSuccess = (tokens: AuthTokens, user: User) => ({
+    type: ActionTypes.LOAD_USER_SESSION_SUCCESS,
+    payload: {tokens, user},
+});
